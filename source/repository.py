@@ -27,7 +27,8 @@ class TaskRepository:
 
 	#remove row by id
 	def delete_entry(self, entry_id):
-		self.cursor.execute(f"DELETE FROM todo_list WHERE id = {entry_id}")
+		self.cursor.execute("DELETE FROM todo_list WHERE id = ?",
+							(entry_id,))
 		self.connection.commit()
 
 	#edit row by id, also need to edit descrition 
@@ -42,7 +43,8 @@ class TaskRepository:
 		return self.cursor.fetchall()
 
 	#show row by id
-	def get_entry(self, entry_id):
-		self.cursor.execute(f"SELECT * FROM todo_list WHERE id = {entry_id}")
-		return self.cursor.fetchall()
+	def get_entry_by_id(self, entry_id):
+		self.cursor.execute("SELECT * FROM todo_list WHERE id = ?",
+							(entry_id,))
+		return self.cursor.fetchone()
 	

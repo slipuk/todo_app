@@ -12,9 +12,15 @@ def main():
 	service.create_task("Looking", "for bed")
 	service.delete_task(31)
 	service.edit_task(21, "pasta")
-	tasks = service.list_all_tasks()
+	
 	print(service.find_task(1))
-	print(service.list_task(21))
+
+	task = service.get_task(21)
+
+	print(f"{task.id} | {task.name} | {task.description}")
+	
+	tasks = service.get_all_tasks()
+	
 	for task in tasks:
 		print(f"{task.id} | {task.name} | {task.description}")
 

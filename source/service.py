@@ -8,11 +8,11 @@ class TaskService:
 
 	#function for id out-of-range user call, answer to user 
 	def no_task_promt(self, id):
-		return f"no task with id: {id}"
+		raise ValueError(f"No task with id: {id}")
 
 	#check if task is in database by id or name
 	def find_task(self, id=0, name=""):
-		for task in self.repository.get_entry():
+		for task in self.repository.get_all_entries():
 			if id or name in task:
 				return True
 		return False
@@ -40,15 +40,15 @@ class TaskService:
 
 	#lists all tasks, returns Task(id={task_id},name={task_name}, decription={task_description})
 	#check models.py
-	def list_all_tasks(self):
+	def get_all_tasks(self):
 		rows = self.repository.get_all_entries()
 		return [Task(*row) for row in rows]
 
 	#returns task by id
-	def list_task(self, id):
+	def get_task(self, id):
 		if self.find_task(id):
-			row = self.repository.get_entry(id)
-			return [Task(*row)]
+			row = self.repository.get_entry_by_id(id)
+			return Task(*row)
 		else: 
 			return self.no_task_promt(id)
 
