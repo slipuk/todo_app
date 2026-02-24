@@ -47,4 +47,8 @@ class TaskRepository:
 		self.cursor.execute("SELECT * FROM todo_list WHERE id = ?",
 							(entry_id,))
 		return self.cursor.fetchone()
-	
+
+	def get_entry_by_name(self, entry_name):
+		self.cursor.execute("SELECT * FROM todo_list WHERE name = ?",
+							(entry_name,))
+		return self.cursor.fetchone()

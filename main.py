@@ -9,15 +9,15 @@ def main():
 
 	service = TaskService(repository)
 
-	service.create_task("Looking", "for bed")
-	service.delete_task(31)
-	service.edit_task(21, "pasta")
+	# service.create_task("Hooking", "for bed")
+	# service.delete_task(1)
+	# service.edit_task(1, "pasta")
 	
-	print(service.find_task(1))
+	# print(service.find_task(1))
 
-	task = service.get_task(21)
+	# task = service.get_task(1)
 
-	print(f"{task.id} | {task.name} | {task.description}")
+	# print(f"{task.id} | {task.name} | {task.description}")
 	
 	tasks = service.get_all_tasks()
 	
