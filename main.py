@@ -65,7 +65,7 @@ def main():
                 print("Enter a proper number")
                 continue
             task = service.get_task_by_id(user_input_id)
-            print(f"{task.id} | {task.name} | {task.description}")
+            service.print_task(task)
 
 
 if __name__ == "__main__":

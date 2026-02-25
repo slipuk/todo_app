@@ -6,15 +6,13 @@ from source.models import Task
 class TaskService:
     def __init__(self, repository):
         self.repository = repository
-
-    # function for id out-of-range user call, answer to user
-    def no_task_promt(self, id):
-        return f"no task with id: {id}"
+        self.no_task_promt = "no task with this id"
 
     # check if task is in database by id or name
-    def find_task(self, name):
-        for task in self.repository.get_all_entries():
-            if name in [element for element in task]:
+    def find_task(self, id):
+        task_list = self.repository.get_all_entries()
+        for task in task_list:
+            if id == Task(*task).id:
                 return True
         return False
 
@@ -30,14 +28,14 @@ class TaskService:
         if self.find_task(id):
             self.repository.delete_entry(id)
         else:
-            self.no_task_promt(id)
+            return self.no_task_promt
 
     # edit task by id, need to change description
     def edit_task(self, id, description):
         if self.find_task(id):
             self.repository.edit_entry(id, description)
         else:
-            self.no_task_promt(id)
+            return self.no_task_promt
 
     # lists all tasks, returns Task(id={task_id},name={task_name}, decription={task_description})
     # check models.py
@@ -51,9 +49,13 @@ class TaskService:
             row = self.repository.get_entry_by_id(id)
             return Task(*row)
         else:
-            return self.no_task_promt(id)
+            return self.no_task_promt
 
     def print_task(self, task_list):
         if isinstance(task_list, list):
             for task in task_list:
                 print(f"{task.id} | {task.name} | {task.description}")
+        elif isinstance(task_list, Task):
+            print(f"{task_list.id} | {task_list.name} | {task_list.description}")
+        else:
+            print(self.no_task_promt)
