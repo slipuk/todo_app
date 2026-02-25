@@ -12,9 +12,9 @@ class TaskService:
         return f"no task with id: {id}"
 
     # check if task is in database by id or name
-    def find_task(self, id):
+    def find_task(self, name):
         for task in self.repository.get_all_entries():
-            if id in [element for element in task]:
+            if name in [element for element in task]:
                 return True
         return False
 
